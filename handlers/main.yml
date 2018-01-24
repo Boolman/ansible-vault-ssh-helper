@@ -1,0 +1,7 @@
+---
+# handlers file for vault-ssh-helper
+---
+- name: restart sshd
+  become: true
+  systemd: state=restarted name=ssh
+

@@ -1,0 +1,10 @@
+---
+# defaults file for vault-ssh-helper
+vault_ssh_helper_version: "0.1.4"
+vault_ssh_helper_sha256checksum: "156ce8250725e64a3e4dc51018a18813dd44d1f2a6c853976bc20e1625d631a1"
+vault_ssh_helper_repo_url: "https://releases.hashicorp.com/vault-ssh-helper/{{ vault_ssh_helper_version }}/vault-ssh-helper_{{ vault_ssh_helper_version }}_linux_amd64.zip"
+
+vault_url: "http://127.0.0.1:8200"
+vault_ssh_helper_tls_skip_verify: "false"
+vault_ssh_helper_allowed_roles: "*"
+

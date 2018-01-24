@@ -1,0 +1,37 @@
+---
+# tasks file for vault-ssh-helper
+
+
+- name: Generate /etc/ssh/vault.hcl
+  template:
+    src: vault.hcl.j2
+    dest: /etc/ssh/vault.hcl
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Install libpam-ssh
+  apt:
+    name: libpam-ssh
+    state: present
+
+- name: Create /etc/pam.d/sshd
+  copy:
+    src: sshd
+    dest: /etc/pam.d/sshd
+    owner: root
+    group: root
+    mode: 0644
+
+- replace:
+    path: /etc/ssh/sshd_config
+    regexp: 'ChallengeResponseAuthentication no'
+    replace: 'ChallengeResponseAuthentication yes'
+    backup: yes
+    notify: restart sshd
+- replace:
+    path: /etc/ssh/sshd_config
+    regexp: 'UsePAM no'
+    replace: 'UsePAM yes'
+    backup: yes
+    notify: restart sshd
