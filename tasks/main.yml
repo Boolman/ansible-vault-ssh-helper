@@ -1,7 +1,5 @@
 ---
 # tasks file for vault-ssh-helper
-
-
 - name: Generate /etc/ssh/vault.hcl
   template:
     src: vault.hcl.j2
@@ -17,7 +15,7 @@
 
 - name: Create /etc/pam.d/sshd
   copy:
-    src: sshd
+    src: {{ vault_ssh_helper_sshd|default('sshd') }}
     dest: /etc/pam.d/sshd
     owner: root
     group: root
