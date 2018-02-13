@@ -15,7 +15,7 @@
 
 - name: Create /etc/pam.d/sshd
   copy:
-    src: {{ vault_ssh_helper_sshd|default('sshd') }}
+    src: "{{ vault_ssh_helper_sshd|default('sshd') }}"
     dest: /etc/pam.d/sshd
     owner: root
     group: root
@@ -23,13 +23,16 @@
 
 - replace:
     path: /etc/ssh/sshd_config
-    regexp: 'ChallengeResponseAuthentication no'
+    regexp: '^ChallengeResponseAuthentication no$'
     replace: 'ChallengeResponseAuthentication yes'
     backup: yes
-    notify: restart sshd
 - replace:
     path: /etc/ssh/sshd_config
-    regexp: 'UsePAM no'
+    regexp: '^UsePAM no$'
     replace: 'UsePAM yes'
     backup: yes
-    notify: restart sshd
+
+- name: Restart sshd
+  systemd:
+    state: restarted
+    name: sshd
