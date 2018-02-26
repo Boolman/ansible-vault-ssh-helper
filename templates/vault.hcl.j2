@@ -1,3 +1,7 @@
 {% for key, value in vault_ssh_helper_config.iteritems() %}
+{% if 'false' in value %}
 {{ key }} = {{ value }}
+{% else %}
+{{ key }} = "{{ value }}"
+{% endif %}  
 {% endfor %}
