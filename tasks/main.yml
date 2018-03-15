@@ -32,6 +32,13 @@
     replace: 'UsePAM yes'
     backup: yes
 
+- name: Install binary
+  unarchive:
+    src: "{{ vault_ssh_helper_repo_url }}" 
+    dest: /usr/bin
+    mode: 0755
+    remote_src: yes
+
 - name: Restart sshd
   systemd:
     state: restarted
